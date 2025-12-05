@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1920, initial-scale=1.0">
+    <title>EcoMatch Homepage</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css" rel="stylesheet">
+    <style>
+        @font-face {
+            font-family: 'AlibabaSans-Regular';
+            src: url('https://assets-persist.lovart.ai/agent-static-assets/AlibabaSans-Regular.otf');
+        }
+        @font-face {
+            font-family: 'AlibabaSans-Bold';
+            src: url('https://assets-persist.lovart.ai/agent-static-assets/Alibaba-PuHuiTi-Bold.otf');
+        }
+        @font-face {
+            font-family: 'NotoSerifCJKsc-Bold';
+            src: url('https://assets-persist.lovart.ai/agent-static-assets/NotoSerifCJKsc-Bold.otf');
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            width: 1920px;
+            margin: 0 auto;
+            font-family: 'AlibabaSans-Regular', sans-serif;
+            color: #333;
+            background-color: #f9fcf9;
+            overflow-x: hidden;
+        }
+
+        /* Colors */
+        :root {
+            --light-blue: #87CEEB;
+            --medium-green: #7CB342;
+            --darker-green: #689F38;
+            --dark-teal: #00695C;
+            --bg-light: #F1F8E9;
+            --text-dark: #1a1a1a;
+        }
+
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; }
+
+        /* Typography Defaults */
+        h1, h2, h3, h4 {
+            font-family: 'AlibabaSans-Bold', sans-serif;
+            line-height: 1.2;
+        }
+        p {
+            line-height: 1.6;
+            font-size: 18px;
+            color: #555;
+        }
+
+        /* Header */
+        header {
+            width: 100%;
+            padding: 20px 60px;
+            background: rgba(255, 255, 255, 0.98);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            border-bottom: 1px solid rgba(124, 179, 66, 0.2);
+        }
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .logo-img {
+            height: 60px;
+            width: auto;
+        }
+        .nav-menu {
+            display: flex;
+            gap: 30px;
+        }
+        .nav-menu a {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--dark-teal);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: color 0.3s;
+        }
+        .nav-menu a:hover {
+            color: var(--medium-green);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 120px 60px;
+            text-align: center;
+            background: linear-gradient(135deg, #E3F2FD 0%, #F1F8E9 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -100px;
+            right: -100px;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, var(--medium-green) 0%, transparent 70%);
+            opacity: 0.1;
+            filter: blur(80px);
+        }
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -100px;
+            left: -100px;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, var(--light-blue) 0%, transparent 70%);
+            opacity: 0.15;
+            filter: blur(80px);
+        }
+        .hero-logo {
+            width: 100px;
+            margin-bottom: 30px;
+            filter: drop-shadow(0 5px 10px rgba(0,0,0,0.1));
+        }
+        .hero h1 {
+            font-size: 90px;
+            color: var(--darker-green);
+            margin-bottom: 15px;
+            letter-spacing: -2px;
+        }
+        .hero .tagline {
+            font-size: 36px;
+            color: var(--dark-teal);
+            margin-bottom: 40px;
+            font-weight: 400;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .hero .stat {
+            font-size: 22px;
+            background: white;
+            display: inline-block;
+            padding: 15px 40px;
+            border-radius: 50px;
+            color: var(--dark-teal);
+            margin-bottom: 60px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+            border: 2px solid rgba(135, 206, 235, 0.3);
+            font-weight: 600;
+        }
+        .cta-group {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+        }
+        .btn {
+            padding: 20px 50px;
+            border-radius: 50px;
+            font-size: 18px;
+            font-weight: bold;
+            transition: all 0.3s;
+            cursor: pointer;
+            display: inline-block;
+            text-decoration: none;
+        }
+        .btn-primary {
+            background: var(--medium-green);
+            color: white;
+            box-shadow: 0 10px 20px rgba(124, 179, 66, 0.4);
+        }
+        .btn-secondary {
+            background: var(--light-blue);
+            color: white;
+            box-shadow: 0 10px 20px rgba(135, 206, 235, 0.4);
+        }
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--dark-teal);
+            color: var(--dark-teal);
+        }
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+
+        /* Standard Section Styling */
+        .section {
+            padding: 100px 180px;
+            position: relative;
+        }
+        .section-title {
+            font-size: 54px;
+            color: var(--dark-teal);
+            margin-bottom: 50px;
+            position: relative;
+            padding-left: 25px;
+            border-left: 10px solid var(--medium-green);
+        }
+        .section-content {
+            font-size: 22px;
+            color: #444;
+            line-height: 1.7;
+        }
+
+        /* Challenge */
+        .challenge-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 80px;
+            align-items: flex-start;
+        }
+        .challenge-card {
+            background: white;
+            padding: 50px;
+            border-radius: 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.06);
+            border-top: 8px solid var(--light-blue);
+        }
+        .stat-box {
+            background: var(--dark-teal);
+            color: white;
+            padding: 30px;
+            border-radius: 20px;
+            margin-top: 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .stat-box::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+            transform: rotate(45deg);
+        }
+        .stat-box h3 { font-size: 50px; margin-bottom: 5px; color: var(--medium-green); }
+
+        /* Insights */
+        .insights-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            margin-top: 50px;
+        }
+        .insight-card {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            border: 1px solid #eee;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.04);
+            transition: transform 0.3s;
+        }
+        .insight-card:hover { transform: translateY(-5px); }
+        .insight-icon {
+            font-size: 42px;
+            color: var(--medium-green);
+            margin-bottom: 20px;
+            background: var(--bg-light);
+            width: 80px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+        .insight-card h4 { font-size: 24px; color: var(--dark-teal); margin-bottom: 15px; }
+        .quote-box {
+            margin-top: 60px;
+            background: linear-gradient(135deg, var(--light-blue), #4FC3F7);
+            padding: 50px 80px;
+            border-radius: 30px;
+            color: white;
+            font-style: italic;
+            font-size: 26px;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 15px 30px rgba(135, 206, 235, 0.4);
+        }
+        .quote-box i {
+            font-size: 60px;
+            position: absolute;
+            top: 20px;
+            left: 30px;
+            opacity: 0.5;
+        }
+        .citations {
+            margin-top: 30px;
+            font-size: 14px;
+            color: #999;
+            text-align: right;
+        }
+
+        /* Solution */
+        .solution-section {
+            background: #F5FAFD;
+        }
+        .solution-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 100px;
+            align-items: center;
+        }
+        .solution-img-container {
+            position: relative;
+            border-radius: 40px;
+            overflow: hidden;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.15);
+            border: 8px solid white;
+        }
+        .solution-img-container img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        .pitch-box {
+            background: white;
+            padding: 40px;
+            border-left: 6px solid var(--medium-green);
+            margin-top: 40px;
+            font-size: 18px;
+            color: #555;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            border-radius: 0 20px 20px 0;
+        }
+
+        /* Impact */
+        .impact-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            margin-top: 60px;
+        }
+        .sdg-card {
+            background: white;
+            padding: 40px 20px;
+            text-align: center;
+            border-radius: 20px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            transition: 0.3s;
+            border-bottom: 5px solid transparent;
+        }
+        .sdg-card:hover { 
+            transform: translateY(-10px); 
+            border-bottom: 5px solid var(--medium-green);
+        }
+        .sdg-number {
+            font-size: 52px;
+            font-weight: bold;
+            color: var(--dark-teal);
+            margin-bottom: 15px;
+            font-family: 'AlibabaSans-Bold', sans-serif;
+        }
+        .sdg-title { 
+            font-weight: bold; 
+            font-size: 18px;
+            margin-bottom: 15px; 
+            color: var(--medium-green); 
+            text-transform: uppercase;
+        }
+
+        /* Market */
+        .market-section {
+            background: white;
+        }
+        .market-stats {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 60px;
+            gap: 40px;
+        }
+        .market-stat-card {
+            flex: 1;
+            background: #F9FBF9;
+            padding: 50px;
+            border-radius: 30px;
+            text-align: center;
+            border: 1px solid #E0E0E0;
+            transition: 0.3s;
+        }
+        .market-stat-card:hover {
+            background: #fff;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+        }
+        .market-big-num {
+            font-size: 64px;
+            color: var(--darker-green);
+            font-weight: bold;
+            margin-bottom: 15px;
+            font-family: 'AlibabaSans-Bold', sans-serif;
+        }
+        .market-stat-card p {
+            font-size: 20px;
+            color: #666;
+        }
+
+        /* Business */
+        .business-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+        }
+        .biz-col {
+            background: white;
+            border: 1px solid #ddd;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.03);
+        }
+        .biz-col h3 {
+            color: var(--dark-teal);
+            margin-bottom: 25px;
+            font-size: 24px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .biz-col ul li {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            font-size: 18px;
+            color: #555;
+        }
+        .biz-col ul li i {
+            margin-right: 15px;
+            font-size: 20px;
+        }
+
+        /* Team */
+        .team-section {
+            background: linear-gradient(to bottom, #ffffff, #E8F5E9);
+            padding-bottom: 120px;
+        }
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 30px;
+            margin-top: 60px;
+        }
+        .team-member {
+            background: white;
+            padding: 40px 20px;
+            border-radius: 25px;
+            text-align: center;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.06);
+            transition: 0.3s;
+        }
+        .team-member:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.12);
+        }
+        .member-img {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 25px;
+            border: 5px solid var(--light-blue);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+        .member-name {
+            font-size: 26px;
+            font-weight: bold;
+            color: var(--dark-teal);
+            margin-bottom: 8px;
+        }
+        .member-role {
+            font-size: 16px;
+            color: var(--medium-green);
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+        }
+        .member-contrib {
+            font-size: 15px;
+            color: #666;
+            font-style: italic;
+            line-height: 1.4;
+        }
+
+        /* CTA */
+        .cta-section {
+            text-align: center;
+            background: var(--dark-teal);
+            color: white;
+            padding: 120px 60px;
+            position: relative;
+            overflow: hidden;
+        }
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://a.lovart.ai/artifacts/user/p9kuMvFIXM7EMRi9.png') no-repeat center center;
+            background-size: contain;
+            opacity: 0.05;
+        }
+        .cta-section h2 {
+            color: white;
+            font-size: 64px;
+            margin-bottom: 60px;
+            position: relative;
+        }
+        .cta-links {
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+            position: relative;
+        }
+        .cta-link {
+            font-size: 28px;
+            color: var(--light-blue);
+            text-decoration: underline;
+            cursor: pointer;
+            transition: color 0.3s;
+            font-weight: bold;
+        }
+        .cta-link:hover {
+            color: white;
+        }
+
+        /* Recognition */
+        .recognition {
+            background: #1a1a1a;
+            color: #999;
+            padding: 80px 180px;
+            font-size: 16px;
+            border-top: 1px solid #333;
+        }
+        .recognition h3 { color: #fff; margin-bottom: 25px; font-size: 20px; }
+        .rec-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+        }
+        .rec-grid p { color: #999; font-size: 16px; margin-bottom: 10px; }
+
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="logo-container">
+            <img src="https://a.lovart.ai/artifacts/user/p9kuMvFIXM7EMRi9.png" alt="EcoMatch Logo" class="logo-img">
+        </div>
+        <nav class="nav-menu">
+            <a href="#home">Home</a>
+            <a href="#about">About</a>
+            <a href="#challenge">Challenge</a>
+            <a href="#insights">Insights</a>
+            <a href="#solution">Solution</a>
+            <a href="#impact">Impact</a>
+            <a href="#market">Market</a>
+            <a href="#business">Business</a>
+            <a href="#team">Team</a>
+            <a href="#prototype">Prototype</a>
+            <a href="#contact">Contact</a>
+        </nav>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero" id="home">
+        <img src="https://a.lovart.ai/artifacts/user/p9kuMvFIXM7EMRi9.png" alt="Logo Icon" class="hero-logo">
+        <h1>EcoMatch</h1>
+        <p class="tagline">EcoMatch helps you look good, feel good, and do good.</p>
+        <div class="stat">100 billion garments produced yearly — 10% of global CO₂ emissions</div>
+        <div class="cta-group">
+            <a href="mailto:partners@ecomatch.com" class="btn btn-primary">Partner With Us</a>
+            <a href="mailto:contact@ecomatch.com" class="btn btn-secondary">Join the Journey</a>
+            <a href="mailto:info@ecomatch.com" class="btn btn-outline">Learn More</a>
+        </div>
+    </section>
+
+    <!-- Challenge -->
+    <section class="section" id="challenge">
+        <h2 class="section-title">The Crisis We Can't Ignore</h2>
+        <div class="challenge-grid">
+            <div class="section-content">
+                <p>Fast fashion's affordability and speed come at severe environmental and social costs. Gen Z and Millennials use fashion to express identity, yet this unintentionally fuels overconsumption.</p>
+                <br>
+                <p>Over 100 billion garments are produced annually, contributing to 10% of global carbon emissions, labor exploitation, and overproduction. Social media FOMO drives constant trend cycles. Sustainable options often feel too expensive or inaccessible.</p>
+                <br>
+                <p><strong style="color: var(--dark-teal);">The core challenge:</strong> redesign consumption so sustainable choices feel as exciting, validating, and expressive as fast fashion.</p>
+            </div>
+            <div class="challenge-card">
+                <h3 style="margin-bottom: 20px;"><i class="ri-alarm-warning-fill" style="color: var(--medium-green);"></i> Critical Factors</h3>
+                <ul style="font-size: 20px; line-height: 2.2; color: #555;">
+                    <li><i class="ri-arrow-right-line" style="color: var(--light-blue); margin-right: 10px;"></i> 10% of Global Carbon Emissions</li>
+                    <li><i class="ri-arrow-right-line" style="color: var(--light-blue); margin-right: 10px;"></i> Labor Exploitation Risks</li>
+                    <li><i class="ri-arrow-right-line" style="color: var(--light-blue); margin-right: 10px;"></i> Driven by Social Media FOMO</li>
+                    <li><i class="ri-arrow-right-line" style="color: var(--light-blue); margin-right: 10px;"></i> Barriers for Ethical Brands</li>
+                </ul>
+                <div class="stat-box">
+                    <h3>100 Billion</h3>
+                    <p style="color: white; font-size: 18px;">Garments produced annually</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Insights -->
+    <section class="section" id="insights" style="background: #fff;">
+        <h2 class="section-title">What We Discovered</h2>
+        <div class="insights-grid">
+            <div class="insight-card">
+                <div class="insight-icon"><i class="ri-money-dollar-circle-line"></i></div>
+                <h4>Willingness to Pay</h4>
+                <p>Consumers are willing to pay 9-12% more for sustainable goods, yet price remains the top barrier.</p>
+            </div>
+            <div class="insight-card">
+                <div class="insight-icon"><i class="ri-shield-check-line"></i></div>
+                <h4>The Trust Gap</h4>
+                <p>Sustainable brands are fragmented; greenwashing creates distrust among consumers.</p>
+            </div>
+            <div class="insight-card">
+                <div class="insight-icon"><i class="ri-emotion-happy-line"></i></div>
+                <h4>Psychology of Shopping</h4>
+                <p>Fast fashion is driven by FOMO, novelty, instant gratification, and low cost.</p>
+            </div>
+        </div>
+        <div class="quote-box">
+            <i class="ri-double-quotes-l"></i>
+            "I want to shop sustainably but never know what brands are actually ethical. Fast fashion makes me feel stylish, but I hate the guilt."
+            <div style="font-size: 18px; margin-top: 20px; font-weight: bold; color: rgba(255,255,255,0.9);">- Customer Interview</div>
+        </div>
+        <div class="citations">Citations: (Wijngaarden 2024, Lin 2022, GlobeScan 2025)</div>
+    </section>
+
+    <!-- Solution -->
+    <section class="section solution-section" id="solution">
+        <h2 class="section-title">Our Net-Positive Innovation</h2>
+        <div class="solution-layout">
+            <div>
+                <p style="font-size: 24px; font-weight: bold; color: var(--dark-teal); margin-bottom: 25px; line-height: 1.4;">
+                    A dating-app-inspired platform that matches users with sustainable brands based on their style and values.
+                </p>
+                <p style="margin-bottom: 20px;">Users build a style profile (aesthetic, brands they love, causes they care about). EcoMatch connects them to verified sustainable companies aligned with their identity. This solves the 'I never know what to wear' frustration and eliminates greenwashing confusion.</p>
+                <p>It makes sustainable discovery fun, effortless, and identity-driven.</p>
+                
+                <div class="pitch-box">
+                    <strong style="display: block; margin-bottom: 15px; font-size: 20px; color: var(--darker-green);">1-Minute Pitch:</strong>
+                    "Imagine if your dating app cared about the planet as much as you do. What if it could match you with brands that share your values, your style, and your sense of self? That's EcoMatch. We're not just selling clothes—we're redesigning how people think about fashion. By connecting consumers with sustainable brands through a dating-app interface, we make ethical shopping feel as exciting, personal, and effortless as swiping. No more greenwashing. No more guesswork. Just brands that get you, and the planet."
+                </div>
+            </div>
+            <div class="solution-img-container">
+                <img src="https://a.lovart.ai/artifacts/agent/CwAnD2InbayxkXL2.png" alt="EcoMatch App Interface">
+            </div>
+        </div>
+    </section>
+
+    <!-- Impact -->
+    <section class="section" id="impact">
+        <h2 class="section-title">Net Positive by Design</h2>
+        <p style="max-width: 900px; margin-bottom: 50px; font-size: 20px;">Reduces textile waste through outfit generation & mindful shopping. Supports ethical labor. Encourages slower, economical fashion. Builds community around conscious consumption. Strengthens resale, rental, and repair markets.</p>
+        
+        <div class="impact-grid">
+            <div class="sdg-card">
+                <div class="sdg-number">08</div>
+                <div class="sdg-title">Decent Work</div>
+                <p>Promoting fair labor practices and economic growth.</p>
+            </div>
+            <div class="sdg-card">
+                <div class="sdg-number">09</div>
+                <div class="sdg-title">Industry Innovation</div>
+                <p>New models for circular fashion and infrastructure.</p>
+            </div>
+            <div class="sdg-card">
+                <div class="sdg-number">12</div>
+                <div class="sdg-title">Responsible Consumption</div>
+                <p>Reducing waste, overproduction and harmful cycles.</p>
+            </div>
+            <div class="sdg-card">
+                <div class="sdg-number">13</div>
+                <div class="sdg-title">Climate Action</div>
+                <p>Lowering carbon footprints across supply chains.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Market Opportunity -->
+    <section class="section market-section" id="market">
+        <h2 class="section-title">Why This Works</h2>
+        <div class="market-stats">
+            <div class="market-stat-card">
+                <i class="ri-group-fill" style="font-size: 50px; color: var(--light-blue); margin-bottom: 20px; display: inline-block;"></i>
+                <h3 style="margin-bottom: 10px;">Target Audience</h3>
+                <p>Gen Z (18-24) & Millennials (25-40)</p>
+                <p style="margin-top: 10px; font-weight: bold; color: var(--dark-teal);">Conscious Consumers</p>
+            </div>
+            <div class="market-stat-card">
+                <div class="market-big-num">$8.6B</div>
+                <p>Sustainable Fashion Market (2030)</p>
+            </div>
+            <div class="market-stat-card">
+                <div class="market-big-num">75%</div>
+                <p>of Gen Z prioritize sustainability</p>
+            </div>
+        </div>
+        <p style="margin-top: 50px; text-align: center; font-style: italic; color: var(--dark-teal); font-size: 24px;">"EcoMatch merges the excitement of swiping with verified sustainability—no other platform blends identity, impact, and discovery this way."</p>
+    </section>
+
+    <!-- Business Model -->
+    <section class="section" id="business" style="background: #f9fcf9;">
+        <h2 class="section-title">Our Path Forward</h2>
+        <div class="business-grid">
+            <div class="biz-col">
+                <h3><i class="ri-pie-chart-2-fill"></i> Revenue Streams</h3>
+                <ul>
+                    <li><i class="ri-check-double-line" style="color: var(--medium-green);"></i> Affiliate Partnerships</li>
+                    <li><i class="ri-check-double-line" style="color: var(--medium-green);"></i> Brand Placements</li>
+                    <li><i class="ri-check-double-line" style="color: var(--medium-green);"></i> Premium Styling Tools</li>
+                </ul>
+            </div>
+            <div class="biz-col">
+                <h3><i class="ri-coin-fill"></i> Cost Structure</h3>
+                <ul>
+                    <li><i class="ri-arrow-right-s-fill" style="color: var(--light-blue);"></i> Tech Development</li>
+                    <li><i class="ri-arrow-right-s-fill" style="color: var(--light-blue);"></i> Brand Partnerships</li>
+                    <li><i class="ri-arrow-right-s-fill" style="color: var(--light-blue);"></i> Sustainability Verification</li>
+                </ul>
+            </div>
+            <div class="biz-col">
+                <h3><i class="ri-rocket-fill"></i> Next Steps</h3>
+                <ul>
+                    <li><i class="ri-flag-2-fill" style="color: var(--dark-teal);"></i> Pilot Testing</li>
+                    <li><i class="ri-flag-2-fill" style="color: var(--dark-teal);"></i> Onboarding Brands</li>
+                    <li><i class="ri-flag-2-fill" style="color: var(--dark-teal);"></i> University Rollout</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team -->
+    <section class="section team-section" id="team">
+        <h2 class="section-title">The People Behind EcoMatch</h2>
+        <div class="team-grid">
+            <!-- Alonso -->
+            <div class="team-member">
+                <img src="https://a.lovart.ai/artifacts/user/TZqOXGkGaCaOtIuF.jpeg" alt="Alonso" class="member-img">
+                <div class="member-name">Alonso</div>
+                <div class="member-role">Research & Data</div>
+                <div class="member-contrib">"Analyzed 100+ sustainable fashion brands for verification"</div>
+            </div>
+            <!-- Karolina -->
+            <div class="team-member">
+                <img src="https://a.lovart.ai/artifacts/user/4ws4cGZlLI1AYeHX.jpeg" alt="Karolina" class="member-img">
+                <div class="member-name">Karolina</div>
+                <div class="member-role">UX Design</div>
+                <div class="member-contrib">"Designed the swiping interface and brand matching algorithm"</div>
+            </div>
+            <!-- Michelle -->
+            <div class="team-member">
+                <img src="https://a.lovart.ai/artifacts/user/dfK94mDVnA0kaMZ3.jpeg" alt="Michelle" class="member-img">
+                <div class="member-name">Michelle</div>
+                <div class="member-role">Verification</div>
+                <div class="member-contrib">"Built the third-party certification system for brands"</div>
+            </div>
+            <!-- Ashlay -->
+            <div class="team-member">
+                <img src="https://a.lovart.ai/artifacts/user/KOBpIkKhYF5Rq3Bh.jpeg" alt="Ashlay" class="member-img">
+                <div class="member-name">Ashlay</div>
+                <div class="member-role">Marketing</div>
+                <div class="member-contrib">"Developed the Gen Z engagement strategy"</div>
+            </div>
+            <!-- Cristian -->
+            <div class="team-member">
+                <img src="https://a.lovart.ai/artifacts/user/Lgiat0U5S87ehu7Q.jpeg" alt="Cristian" class="member-img">
+                <div class="member-name">Cristian</div>
+                <div class="member-role">Community</div>
+                <div class="member-contrib">"Created the fashion-forward content and social media campaigns"</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="section cta-section" id="contact">
+        <h2>Join Us</h2>
+        <div class="cta-links">
+            <a href="mailto:partners@ecomatch.com" class="cta-link">Partner With EcoMatch</a>
+            <a href="mailto:contact@ecomatch.com" class="cta-link">Test Our Prototype</a>
+            <a href="mailto:info@ecomatch.com" class="cta-link">Support Our Pilot</a>
+        </div>
+    </section>
+
+    <!-- Recognition -->
+    <footer class="recognition">
+        <h2>Credits & Recognition</h2>
+        <div class="rec-grid">
+            <div>
+                <h3>Citations</h3>
+                <p>Wijngaarden, A. (2024). Sustainable Consumption Patterns. Journal of Environmental Economics.</p>
+                <p>Lin, Y. (2022). Fast Fashion Impact Analysis. Sustainability Research Review.</p>
+                <p>GlobeScan. (2025). Global Sustainability Attitudes Survey.</p>
+            </div>
+            <div>
+                <h3>Tools & Feedback</h3>
+                <p><strong>AI Tools Used:</strong> Lovart.ai, Turboscribe, ChatGPT</p>
+                <p style="margin-top: 15px; font-style: italic; color: #bbb;"><strong>Mentor Feedback:</strong> "This approach has real potential to shift consumer behavior."</p>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
